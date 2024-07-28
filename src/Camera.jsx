@@ -3,7 +3,7 @@ import React from 'react';
 function Camera () {
     return (
         <div>
-          <h1>Webcam feed for Dobot Robot</h1>
+          <h2>Webcam feed for Dobot Robot</h2>
           <img 
             src="http://192.168.178.45:3000/video_feed" 
             alt="Webcam feed for Dobot Robot" 

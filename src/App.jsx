@@ -37,8 +37,9 @@ function App() {
               <header className="App-header">
                 <PositionForm />
                 <Camera />
-                <WebSocket />
               </header>
+              <WebSocket />
+
             </div>
           </ProtectedRoute>
         } />

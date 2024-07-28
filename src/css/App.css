@@ -75,3 +75,10 @@ body {
 .App-content {
   padding-top: 60px; /* Adjust this value based on the actual height of your NavBar */
 }
+
+.App-header {
+  display: flex;          /* Aligns children (flex items) in a row */
+  justify-content: center; /* Centers children horizontally */
+  align-items: center;     /* Centers children vertically */
+  gap: 20px;               /* Optional: adds space between children */
+}

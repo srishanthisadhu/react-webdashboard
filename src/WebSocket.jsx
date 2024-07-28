@@ -42,7 +42,7 @@ function WebSocket () {
 
   return (
     <div className="app-container">
-      <h1 className="app-header">ROS Process Output</h1>
+      <h2 className="app-header">Dobot Connection Logs</h2>
       <div className="messages-list">
         {messages.map((msg, index) => (
           <p key={index} className="message-item">{msg}</p>

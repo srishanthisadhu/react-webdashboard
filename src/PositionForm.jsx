@@ -133,7 +133,7 @@ function PositionForm() {
 
   return (
     <div>
-      <h1>Robot Arm Position</h1>
+      <h2>Robot Arm Position</h2>
       <form>
   <div>
     <label htmlFor="x">X:</label>
