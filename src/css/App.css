@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -60,4 +60,18 @@ label {
 
 button {
   margin-right: 10px;
+}
+/* Reset CSS to remove margins and paddings */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Ensures that these elements take full width */
+  height: 100%; /* Helps in stretching elements to full height if necessary */
+}
+
+body {
+  font-family: sans-serif; /* Example of setting a global font */
+}
+.App-content {
+  padding-top: 60px; /* Adjust this value based on the actual height of your NavBar */
 }
