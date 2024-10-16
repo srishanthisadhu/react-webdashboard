@@ -9,6 +9,7 @@ import LoginPage from './LoginPage'
 import ProtectedRoute from './ProtectedRoute'
 import WebSocket from './WebSocket';
 import NavBar from './NavBar';
+import ButtonHeader from './ButtonHeader';
 
 
 // function App() {
@@ -33,7 +34,7 @@ function App() {
           <ProtectedRoute>
             <NavBar/>
             <div className="App-content">
-              
+              <ButtonHeader/>
               <header className="App-header">
                 <PositionForm />
                 <Camera />
