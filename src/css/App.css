@@ -82,3 +82,6 @@ body {
   align-items: center;     /* Centers children vertically */
   gap: 20px;               /* Optional: adds space between children */
 }
+.input-width {
+  width: 12%;
+}

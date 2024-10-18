@@ -1,93 +1,67 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState, useEffect } from 'react';
+
+// Define the global hostname property
+const hostname = 'http://192.168.178.150:3000';
 
 function PositionForm() {
-    const [positions, setPositions] = useState({
-        x: 0.0,
-        y: 0.0,
-        z: 0.0,
-        r: 0.0
-      });
+  const [positions, setPositions] = useState({
+    x: 0.0,
+    y: 0.0,
+    z: 0.0,
+    r: 0.0,
+  });
 
-      const [errorMessage, setErrorMessage] = useState('');
-      const [successMessage, setSuccessMessage] = useState('');
-      
-    useEffect(() => {
-        fetchInitialPositions();
-    }, []); 
-  
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    fetchInitialPositions();
+  }, []);
+
   // Function to fetch initial positions
   const fetchInitialPositions = async () => {
     try {
-        const response = await fetch('http://192.168.178.45:3000/getHome');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const data = await response.json();
-        setPositions({
-          x: Math.round(data.x),
-          y: Math.round(data.y),
-          z: Math.round(data.z),
-          r: Math.round(data.r)
+      const response = await fetch(`${hostname}/getHome`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      setPositions({
+        x: Math.round(data.x),
+        y: Math.round(data.y),
+        z: Math.round(data.z),
+        r: Math.round(data.r),
       });
-        setSuccessMessage('');
-        setErrorMessage('');
+      setSuccessMessage('');
+      setErrorMessage('');
     } catch (error) {
-        console.error('Fetch initial positions error:', error);
-        setErrorMessage(error.message);
-        setSuccessMessage('');
-    }
-};
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   // Input Validation (Basic) - adjusted for parseFloat
-  //   if (!value || (name !== 'r' && isNaN(parseFloat(value)))) {
-  //     setErrorMessage(`${name.toUpperCase()} must be a number.`);
-  //     return; // Don't update if invalid
-  //   }
-
-  //   setErrorMessage(''); // Clear error on valid input
-  //   setPositions({
-  //     ...positions,
-  //     [name]: parseFloat(value) // Parse immediately
-  //   });
-  // };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-  
-    // Directly store the input value to state without parsing it as a number
-    setPositions(prevPositions => ({
-      ...prevPositions,
-      [name]: value // Store the value as string temporarily
-    }));
-  
-    // Validate the input: Check if it's either empty, a valid floating number, or a lone minus sign
-    if (value !== '' && value !== '-' && isNaN(parseFloat(value))) {
-      setErrorMessage(`${name.toUpperCase()} must be a number.`);
-    } else {
-      setErrorMessage(''); // Clear error if the current input is potentially valid
+      console.error('Fetch initial positions error:', error);
+      setErrorMessage(error.message);
+      setSuccessMessage('');
     }
   };
-  
 
-  
-  const handleMove = async () => {
-    const payload = {
-      x: parseFloat(positions.x),
-      y: parseFloat(positions.y),
-      z: parseFloat(positions.z),
-      r: parseFloat(positions.r) 
-    };
-    console.log(payload)
+  const handleMove = async (field, delta) => {
+    const updatedPositions = { ...positions };
+
+    // Update the specific field based on the delta
+    updatedPositions[field] = parseFloat(positions[field]) + delta;
+
+    // Input validation (can be improved)
+    if (isNaN(updatedPositions[field])) {
+      setErrorMessage(`${field.toUpperCase()} must be a number.`);
+      return;
+    }
+
+    setPositions(updatedPositions);
+
     try {
-      const response = await fetch('http://192.168.178.45:3000/move2point', {
+      const response = await fetch(`${hostname}/move2point`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify(updatedPositions),
       });
 
       if (!response.ok) {
@@ -107,61 +81,61 @@ function PositionForm() {
 
   const handleHome = async () => {
     try {
-      const response = await fetch('http://192.168.178.45:3000/home', {
+      const response = await fetch(`${hostname}/home`, {
         method: 'GET',
       });
-      if (!response.ok){
-        throw new Error(`HTTP error! status: ${response.status}`)
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       const data = await response.json();
       console.log('Success:', data);
       setSuccessMessage(data.message); // Set success message from response
-      setPositions({ x: 150 , y: 0, z: 100, r: 0 });
+      setPositions({ x: 150, y: 0, z: 100, r: 0 });
       setErrorMessage('');
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
     }
-  }
+  };
 
   const handleReset = () => {
     fetchInitialPositions();
-    // setPositions({ x: '', y: '', z: '', r: '' });
-    setErrorMessage('');
-    setSuccessMessage('');
   };
 
   return (
     <div>
       <h2>Robot Arm Position</h2>
       <form>
-  <div>
-    <label htmlFor="x">X:</label>
-    <input type="number" id="x" name="x" value={positions.x} onChange={handleChange} />
-  </div>
-  <div>
-    <label htmlFor="y">Y:</label>
-    <input type="number" id="y" name="y" value={positions.y} onChange={handleChange} />
-  </div>
-  <div>
-    <label htmlFor="z">Z:</label>
-    <input type="number" id="z" name="z" value={positions.z} onChange={handleChange} />
-  </div>
-  <div>
-    <label htmlFor="r">R:</label>
-    <input type="number" id="r" name="r" value={positions.r} onChange={handleChange} /> 
-  </div>
+        {Object.keys(positions).map((field) => (
+          <div key={field}>
+            <button onClick={(e) => { handleMove(field, -1); e.preventDefault(); }}>-</button>
+            <label htmlFor={field}>{field.toUpperCase()}</label>
+            <button onClick={(e) => { handleMove(field, 1); e.preventDefault(); }}>+</button>
+            <input
+              type="number"
+              id={field}
+              name={field}
+              value={positions[field]}
+              onChange={(e) => {
+                const newValue = parseFloat(e.target.value);
+                if (!isNaN(newValue)) {
+                  setPositions({ ...positions, [field]: newValue });
+                }
+              }}
+              className="input-width"
+            />
+          </div>
+        ))}
 
-  {/* Error message and buttons */}
-  {errorMessage && <div className="error">{errorMessage}</div>} 
-  {successMessage && <div className="success">{successMessage}</div>}
-  <div>
-    <button type="button" onClick={handleMove}>Move</button>
-    <button type="button" onClick={handleHome}>Home</button>
-    <button type="button" onClick={handleReset}>Reset</button>
-  </div>
-</form>
-
+        {/* Error message and buttons */}
+        {errorMessage && <div className="error">{errorMessage}</div>}
+        {successMessage && <div className="success">{successMessage}</div>}
+        <div>
+          <button type="button" onClick={handleMove}>Move</button>
+          <button type="button" onClick={handleHome}>Home</button>
+          <button type="button" onClick={handleReset}>Reset</button>
+        </div>
+      </form>
     </div>
   );
 }

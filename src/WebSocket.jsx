@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import "./css/WebSocket.css"
-const SOCKET_IO_URL = "http://192.168.178.45:3000/bash";
+const SOCKET_IO_URL = "http://192.168.178.150:3000/bash";
+const hostname = 'http://192.168.178.150:3000';
+
 function WebSocket () {
 
   const [messages, setMessages] = useState([]);
@@ -21,7 +23,7 @@ function WebSocket () {
 
   const handleConnect = async () => {
     try {
-      const response = await fetch('http://192.168.178.45:3000/connect2robot');
+      const response = await fetch(`${hostname}/connect2robot`);
       if (response.ok) {
         setConnected(true);
         console.log('Connected to robot successfully');

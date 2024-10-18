@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './css/LoginPage.css'
+const hostname = 'http://192.168.178.150:3000';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -25,7 +26,7 @@ function LoginPage() {
 
 const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.178.45:3000/auth', {
+      const response = await fetch(`${hostname}/auth`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,6 +52,13 @@ const handleLogin = async () => {
       console.error(error); 
     }
   };
+
+  // const handleLogin = async () => {
+  //   const expires = new Date();
+  //       expires.setTime(expires.getTime() + (15 * 60 * 1000)); 
+  //       localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true, expires: expires.toISOString() }));
+  //       navigate('/home');
+  // }
 
 return (
     <div className="login-container">
