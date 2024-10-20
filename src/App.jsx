@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './css/App.css'
 import Camera from './Camera'
@@ -24,6 +22,9 @@ import ButtonHeader from './ButtonHeader';
 // }
 
 function App() {
+  const [positions, setPositions] = useState({ x: 0, y: 0, z: 0, r: 0 });
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   return (
     <Router>
       <div id="root">
@@ -34,9 +35,21 @@ function App() {
           <ProtectedRoute>
             <NavBar/>
             <div className="App-content">
-              <ButtonHeader/>
+            <ButtonHeader
+        setPositions={setPositions}
+        setErrorMessage={setErrorMessage}
+        setSuccessMessage={setSuccessMessage}
+      />
+
               <header className="App-header">
-                <PositionForm />
+              <PositionForm
+        positions={positions}
+        setPositions={setPositions}
+        errorMessage={errorMessage}
+        successMessage={successMessage}
+        setErrorMessage={setErrorMessage}
+        setSuccessMessage={setSuccessMessage}
+      />
                 <Camera />
               </header>
               <WebSocket />

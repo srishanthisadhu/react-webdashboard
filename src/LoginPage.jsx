@@ -25,7 +25,7 @@ function LoginPage() {
 
 const handleLogin = async () => {
     try {
-      const response = await fetch('http://192.168.178.45:3000/auth', {
+      const response = await fetch('http://192.168.178.150:3000/auth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
