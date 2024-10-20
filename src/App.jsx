@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';  // Import the CSS for styling
 import './css/App.css'
 import Camera from './Camera'
 import PositionForm from './PositionForm'
@@ -58,6 +60,18 @@ function App() {
           </ProtectedRoute>
         } />
       </Routes>
+      <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
       </div>
     </Router>
   );

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './css/LoginPage.css'
 
 function LoginPage() {
@@ -7,50 +8,55 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();  // Replacing useHistory with useNavigate
 
-//   const handleLogin = async () => {
-//     // Assume some authentication logic here
-//     console.log(username)
-//     console.log(password)
-//     const isAuthenticated = username === 'user' && password === 'password'; // Example placeholder
-
-//     if (isAuthenticated) {
-//         const expires = new Date();
-//         expires.setTime(expires.getTime() + (15 * 60 * 1000)); // Set expiration time to 15 minutes
-//         localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true, expires: expires.toISOString() }));
-//         navigate('/home');
-//     } else {
-//         alert('Invalid credentials');
-//     }
-//   };
-
 const handleLogin = async () => {
-    try {
-      const response = await fetch('http://192.168.178.150:3000/auth', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          username,
-          password
-        }),
-      });
+  // Create an AbortController instance
+  const controller = new AbortController();
+  const { signal } = controller;
 
-      const data = await response.json();
+  // Create a timeout that aborts the fetch request after 20 seconds
+  const timeoutId = setTimeout(() => {
+    controller.abort(); // Aborts the fetch request
+  }, 10000);
 
-      if (response.ok && data.message === 'Authentication successful') {
-        const expires = new Date();
-        expires.setTime(expires.getTime() + (15 * 60 * 1000)); 
-        localStorage.setItem('auth', JSON.stringify({ isAuthenticated: true, expires: expires.toISOString() }));
-        navigate('/home');
-      } else {
-        alert('Invalid credentials');
-      }
-    } catch (error) {
-      alert('An error occurred during authentication. Please try again.');
-      console.error(error); 
+  try {
+    const response = await fetch('http://192.168.178.150:3000/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      signal: signal, // Attach the signal to the fetch request
+    });
+
+    // Clear the timeout once the response is received
+    clearTimeout(timeoutId);
+
+    const data = await response.json();
+
+    if (response.ok && data.message === 'Authentication successful') {
+      const expires = new Date();
+      expires.setTime(expires.getTime() + 15 * 60 * 1000); // Set 15-minute expiry
+      localStorage.setItem(
+        'auth',
+        JSON.stringify({ isAuthenticated: true, expires: expires.toISOString() })
+      );
+      toast.success('Login successful!');
+      navigate('/home'); // Navigate to home on success
+    } else {
+      toast.error('Invalid credentials. Please try again.');
     }
-  };
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      toast.error('Login request timed out after 20 seconds.');
+    } else {
+      toast.error('An error occurred during authentication. Please try again.');
+      console.error('Login error:', error);
+    }
+  }
+};
 
 return (
     <div className="login-container">

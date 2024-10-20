@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import "./css/WebSocket.css"
-const SOCKET_IO_URL = "http://192.168.178.150:3000/bash";
-function WebSocket () {
+import { toast } from 'react-toastify'; // Import toast from react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import "./css/WebSocket.css";
 
+const SOCKET_IO_URL = "http://192.168.178.150:3000/bash";
+
+function WebSocket() {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
   const [connected, setConnected] = useState(false);
@@ -11,9 +14,17 @@ function WebSocket () {
   useEffect(() => {
     const newSocket = io(SOCKET_IO_URL, { transports: ['websocket'] });
     newSocket.on('connect', () => console.log('Connected to WebSocket server!'));
+    
+    // Handle WebSocket messages
     newSocket.on('bash_output', message => {
       setMessages(prevMessages => [...prevMessages, message.data]);
+
+      // Check if the message contains "Device started"
+      if (message.data.includes('Dobot Magician control stack has been launched correctly')) {
+        toast.success('Connected to Robot');
+      }
     });
+
     setSocket(newSocket);
 
     return () => newSocket.disconnect();
@@ -40,9 +51,18 @@ function WebSocket () {
     }
   };
 
-  return (
+  const clearLog = () => {
+    setMessages([]); // Reset the messages state to clear the terminal window
+  };
+
+    return (
     <div className="app-container">
-      <h2 className="app-header">Dobot Connection Logs</h2>
+      <div className="header-container">
+        <h2 className="app-header">Dobot Connection Logs</h2>
+        <button className="clear-log-button" onClick={clearLog}>
+          Clear Log
+        </button>
+      </div>
       <div className="messages-list">
         {messages.map((msg, index) => (
           <p key={index} className="message-item">{msg}</p>
@@ -68,4 +88,4 @@ function WebSocket () {
   );
 }
 
-export default WebSocket
+export default WebSocket;
