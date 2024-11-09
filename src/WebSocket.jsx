@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
-import { toast } from 'react-toastify'; // Import toast from react-toastify
-import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import { toast } from "react-toastify"; // Import toast from react-toastify
+import "react-toastify/dist/ReactToastify.css"; // Import toast styles
 import "./css/WebSocket.css";
 
 const SOCKET_IO_URL = "http://192.168.178.150:3000/bash";
@@ -12,16 +12,22 @@ function WebSocket() {
   const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    const newSocket = io(SOCKET_IO_URL, { transports: ['websocket'] });
-    newSocket.on('connect', () => console.log('Connected to WebSocket server!'));
-    
+    const newSocket = io(SOCKET_IO_URL, { transports: ["websocket"] });
+    newSocket.on("connect", () =>
+      console.log("Connected to WebSocket server!")
+    );
+
     // Handle WebSocket messages
-    newSocket.on('bash_output', message => {
-      setMessages(prevMessages => [...prevMessages, message.data]);
+    newSocket.on("bash_output", (message) => {
+      setMessages((prevMessages) => [...prevMessages, message.data]);
 
       // Check if the message contains "Device started"
-      if (message.data.includes('Dobot Magician control stack has been launched correctly')) {
-        toast.success('Connected to Robot');
+      if (
+        message.data.includes(
+          "Dobot Magician control stack has been launched correctly"
+        )
+      ) {
+        toast.success("Connected to Robot");
       }
     });
 
@@ -32,21 +38,21 @@ function WebSocket() {
 
   const handleConnect = async () => {
     try {
-      const response = await fetch('http://192.168.178.150:3000/connect2robot');
+      const response = await fetch("http://192.168.178.150:3000/connect2robot");
       if (response.ok) {
         setConnected(true);
-        console.log('Connected to robot successfully');
+        console.log("Connected to robot successfully");
       } else {
-        throw new Error('Failed to connect');
+        throw new Error("Failed to connect");
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     }
   };
 
   const handleDisconnect = () => {
     if (socket) {
-      socket.emit('disconnect_request');
+      socket.emit("disconnect_request");
       setConnected(false);
     }
   };
@@ -55,7 +61,7 @@ function WebSocket() {
     setMessages([]); // Reset the messages state to clear the terminal window
   };
 
-    return (
+  return (
     <div className="app-container">
       <div className="header-container">
         <h2 className="app-header">Dobot Connection Logs</h2>
@@ -65,19 +71,21 @@ function WebSocket() {
       </div>
       <div className="messages-list">
         {messages.map((msg, index) => (
-          <p key={index} className="message-item">{msg}</p>
+          <p key={index} className="message-item">
+            {msg}
+          </p>
         ))}
       </div>
       <div className="button-container">
-        <button 
-          className={`connect-button ${connected ? 'connected' : ''}`} 
+        <button
+          className={`connect-button ${connected ? "connected" : ""}`}
           onClick={handleConnect}
           disabled={connected}
         >
           Connect
         </button>
-        <button 
-          className="disconnect-button" 
+        <button
+          className="disconnect-button"
           onClick={handleDisconnect}
           disabled={!connected}
         >

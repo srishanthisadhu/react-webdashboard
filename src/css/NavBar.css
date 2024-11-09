@@ -7,7 +7,7 @@
   padding: 10px 20px;
   background-color: #2c3e50; /* Dark blue background */
   color: #ecf0f1; /* Light grey text */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed; /* Fixed position */
   top: 0; /* Align to the top */
   left: 0; /* Align to the far left */
@@ -28,7 +28,8 @@
   margin-right: 20px; /* Add space between links */
 }
 
-.nav-link:hover, .nav-link:focus {
+.nav-link:hover,
+.nav-link:focus {
   text-decoration: underline;
   color: #bdc3c7;
 }
@@ -44,6 +45,7 @@
   margin-right: 3%;
 }
 
-.nav-button:hover, .nav-button:focus {
+.nav-button:hover,
+.nav-button:focus {
   background-color: #c0392b; /* Darker red on hover/focus */
 }
