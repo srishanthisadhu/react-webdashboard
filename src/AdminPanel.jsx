@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import "./css/AdminPanel.css";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { useState, useEffect } from 'react';
+import './css/AdminPanel.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function AdminPanel() {
+function AdminPanel(){
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
-  const [selectedUsername, setSelectedUsername] = useState("");
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("student"); // Change default role to 'student'
+  const [selectedUsername, setSelectedUsername] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student'); // Change default role to 'student'
 
   // Fetch users from the API
   const fetchUsers = async () => {
     try {
-      const response = await fetch("http://localhost:5050/admin/all_users");
+      const response = await fetch('http://localhost:5050/admin/all_users');
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
       } else {
-        toast.error("Failed to fetch users.");
+        toast.error('Failed to fetch users.');
       }
     } catch (error) {
-      toast.error("Error fetching users: " + error.message);
+      toast.error('Error fetching users: ' + error.message);
     }
   };
 
@@ -41,101 +41,90 @@ function AdminPanel() {
       };
 
       try {
-        console.log(role);
-        const response = await fetch(
-          "http://localhost:5050/admin/create_user",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(newUser),
-          }
-        );
+        console.log(role)
+        const response = await fetch('http://localhost:5050/admin/create_user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(newUser),
+        });
 
         if (response.ok) {
           const createdUser = await response.json();
           setUsers([...users, createdUser]);
-          toast.success("User created successfully!");
+          toast.success('User created successfully!');
           resetForm();
           fetchUsers();
         } else {
-          toast.error("Failed to create user.");
+          toast.error('Failed to create user.');
         }
       } catch (error) {
-        toast.error("Error: " + error.message);
+        toast.error('Error: ' + error.message);
       }
     } else {
-      toast.warn("Please fill in all fields.");
+      toast.warn('Please fill in all fields.');
     }
   };
 
   const resetForm = () => {
-    setUsername("");
-    setEmail("");
-    setPassword("");
-    setRole("student");
+    setUsername('');
+    setEmail('');
+    setPassword('');
+    setRole('student');
   };
 
   const deleteUser = async (username) => {
-    const confirmDelete = window.confirm(
-      `Are you sure you want to delete the user: ${username}?`
-    );
+    const confirmDelete = window.confirm(`Are you sure you want to delete the user: ${username}?`);
     if (confirmDelete) {
       const encodedUsername = encodeURIComponent(username);
       try {
-        const response = await fetch(
-          `http://localhost:5050/admin/delete_user/${encodedUsername}`,
-          {
-            method: "DELETE",
-          }
-        );
+        const response = await fetch(`http://localhost:5050/admin/delete_user/${encodedUsername}`, {
+          method: 'DELETE',
+        });
 
         if (response.ok) {
-          setUsers(users.filter((user) => user.username !== username));
-          toast.success("User deleted successfully!");
+          setUsers(users.filter(user => user.username !== username));
+          toast.success('User deleted successfully!');
         } else {
-          toast.error("Failed to delete user.");
+          toast.error('Failed to delete user.');
         }
       } catch (error) {
-        toast.error("Error deleting user: " + error.message);
+        toast.error('Error deleting user: ' + error.message);
       }
     }
   };
 
   const resetPassword = async () => {
     if (selectedUserId) {
-      const newPassword = prompt("Enter new password:");
+      const newPassword = prompt('Enter new password:');
       if (newPassword) {
-        const selectedUser = users.find((user) => user.id === selectedUserId);
+        const selectedUser = users.find(user => user.id === selectedUserId);
         const payload = {
           username: selectedUser.username,
           new_password: newPassword,
         };
 
         try {
-          const response = await fetch(
-            "http://localhost:5050/admin/reset_password",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(payload),
-            }
-          );
+          const response = await fetch('http://localhost:5050/admin/reset_password', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload),
+          });
 
           if (response.ok) {
-            toast.success("Password reset successfully!");
+            toast.success('Password reset successfully!');
           } else {
-            toast.error("Failed to reset password.");
+            toast.error('Failed to reset password.');
           }
         } catch (error) {
-          toast.error("Error resetting password: " + error.message);
+          toast.error('Error resetting password: ' + error.message);
         }
       }
     } else {
-      toast.warn("Please select a user to reset the password.");
+      toast.warn('Please select a user to reset the password.');
     }
   };
 
@@ -152,9 +141,7 @@ function AdminPanel() {
       <table className="user-form">
         <tbody>
           <tr>
-            <td>
-              <label>Username:</label>
-            </td>
+            <td><label>Username:</label></td>
             <td>
               <input
                 type="text"
@@ -165,9 +152,7 @@ function AdminPanel() {
             </td>
           </tr>
           <tr>
-            <td>
-              <label>Email:</label>
-            </td>
+            <td><label>Email:</label></td>
             <td>
               <input
                 type="email"
@@ -178,9 +163,7 @@ function AdminPanel() {
             </td>
           </tr>
           <tr>
-            <td>
-              <label>Password:</label>
-            </td>
+            <td><label>Password:</label></td>
             <td>
               <input
                 type="password"
@@ -191,9 +174,7 @@ function AdminPanel() {
             </td>
           </tr>
           <tr>
-            <td>
-              <label>Role:</label>
-            </td>
+            <td><label>Role:</label></td>
             <td>
               <select value={role} onChange={(e) => setRole(e.target.value)}>
                 <option value="student">Student</option>
@@ -203,12 +184,8 @@ function AdminPanel() {
           </tr>
           <tr>
             <td colSpan="2">
-              <button className="create-button" onClick={addUser}>
-                Create User
-              </button>
-              <button className="reset-button" onClick={resetForm}>
-                Reset
-              </button>
+                <button className="create-button" onClick={addUser}>Create User</button>
+                <button className="reset-button" onClick={resetForm}>Reset</button>
             </td>
           </tr>
         </tbody>
@@ -226,33 +203,15 @@ function AdminPanel() {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
-            <tr
-              key={user.id}
-              onClick={() => handleUserSelection(user.id, user.username)}
-              style={{
-                cursor: "pointer",
-                backgroundColor:
-                  selectedUserId === user.id ? "#e0e0e0" : "transparent",
-              }}
-            >
+          {users.map(user => (
+            <tr key={user.id} onClick={() => handleUserSelection(user.id, user.username)} style={{ cursor: 'pointer', backgroundColor: selectedUserId === user.id ? '#e0e0e0' : 'transparent' }}>
               <td>{user.id}</td>
               <td>{user.username}</td>
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <button
-                  className="delete-button"
-                  onClick={() => deleteUser(user.username)}
-                >
-                  Delete
-                </button>
-                <button
-                  className="reset-password-button"
-                  onClick={resetPassword}
-                >
-                  Reset Password
-                </button>
+                <button className="delete-button" onClick={() => deleteUser(user.username)}>Delete</button>
+                <button className="reset-password-button" onClick={resetPassword}>Reset Password</button>
               </td>
             </tr>
           ))}
@@ -270,6 +229,6 @@ function AdminPanel() {
       />
     </div>
   );
-}
+};
 
 export default AdminPanel;

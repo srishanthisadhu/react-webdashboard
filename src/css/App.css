@@ -62,9 +62,7 @@ button {
   margin-right: 10px;
 }
 /* Reset CSS to remove margins and paddings */
-html,
-body,
-#root {
+html, body, #root {
   margin: 0;
   padding: 0;
   width: 100%; /* Ensures that these elements take full width */
@@ -79,8 +77,8 @@ body {
 }
 
 .App-header {
-  display: flex; /* Aligns children (flex items) in a row */
+  display: flex;          /* Aligns children (flex items) in a row */
   justify-content: center; /* Centers children horizontally */
-  align-items: center; /* Centers children vertically */
-  gap: 20px; /* Optional: adds space between children */
+  align-items: center;     /* Centers children vertically */
+  gap: 20px;               /* Optional: adds space between children */
 }

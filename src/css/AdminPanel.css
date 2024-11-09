@@ -22,8 +22,7 @@
   padding: 10px;
 }
 
-.user-form input,
-.user-form select {
+.user-form input, .user-form select {
   padding: 8px;
   width: calc(100% - 16px); /* Adjust width to account for padding */
   border: 1px solid #ccc; /* Add border to inputs */
@@ -38,7 +37,7 @@
 }
 
 .create-button {
-  background-color: #4caf50; /* Green background */
+  background-color: #4CAF50; /* Green background */
   color: white; /* White text */
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
@@ -69,14 +68,11 @@ table {
   border-collapse: collapse;
 }
 
-table,
-th,
-td {
+table, th, td {
   border: 1px solid #ccc;
 }
 
-th,
-td {
+th, td {
   padding: 10px;
   text-align: left;
 }
@@ -101,7 +97,7 @@ th {
 
 /* Styles for Reset Password button */
 .reset-password-button {
-  background-color: #2196f3; /* Blue background */
+  background-color: #2196F3; /* Blue background */
   color: white; /* White text */
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
