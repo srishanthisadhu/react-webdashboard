@@ -4,15 +4,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function AdminPanel(){
+
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [selectedUsername, setSelectedUsername] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const [role, setRole] = useState('student'); // Change default role to 'student'
 
   // Fetch users from the API
+
   const fetchUsers = async () => {
     try {
       const response = await fetch('http://localhost:5050/admin/all_users');
@@ -41,7 +44,6 @@ function AdminPanel(){
       };
 
       try {
-        console.log(role)
         const response = await fetch('http://localhost:5050/admin/create_user', {
           method: 'POST',
           headers: {
@@ -77,6 +79,7 @@ function AdminPanel(){
   const deleteUser = async (username) => {
     const confirmDelete = window.confirm(`Are you sure you want to delete the user: ${username}?`);
     if (confirmDelete) {
+
       const encodedUsername = encodeURIComponent(username);
       try {
         const response = await fetch(`http://localhost:5050/admin/delete_user/${encodedUsername}`, {
@@ -183,9 +186,10 @@ function AdminPanel(){
             </td>
           </tr>
           <tr>
-            <td colSpan="2">
-                <button className="create-button" onClick={addUser}>Create User</button>
-                <button className="reset-button" onClick={resetForm}>Reset</button>
+            <td colSpan="2" style={{ textAlign: 'center' }}>
+              <button className="create-button" onClick={addUser}>Create User</button>
+              <button className="reset-button" onClick={resetForm}>Reset</button>
+
             </td>
           </tr>
         </tbody>

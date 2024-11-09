@@ -1,39 +1,37 @@
-import { useState } from 'react'
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; 
-import Camera from './Camera'
-import PositionForm from './PositionForm'
-import LoginPage from './LoginPage'
-import ProtectedRoute from './ProtectedRoute'
+
+import 'react-toastify/dist/ReactToastify.css';
+import './css/App.css';
+import Camera from './Camera';
+import PositionForm from './PositionForm';
+import LoginPage from './LoginPage';
+import ProtectedRoute from './ProtectedRoute';
 import WebSocket from './WebSocket';
 import NavBar from './NavBar';
 import ButtonHeader from './ButtonHeader';
-import AdminPanel from './AdminPanel'; 
+import AdminPanel from './AdminPanel';
 import ChangePassword from './ChangePassword';
 
-// function App() {
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <PositionForm/>
-  //       <Camera />
-  //     </header>
-  //   </div>
-  // );
-// }
 
 function App() {
   const [positions, setPositions] = useState({ x: 0, y: 0, z: 0, r: 0 });
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+
   return (
     <Router>
       <div id="root">
-        <NavBar />
+        {/* NavBar appears on all pages where user is authenticated */}
+        {localStorage.getItem('auth') && <NavBar />}
+
         <Routes>
           <Route path="/" element={<Navigate replace to="/login" />} />
           <Route path="/login" element={<LoginPage />} />
+
+          {/* Protected Home Route */}
+
           <Route path="/home" element={
             <ProtectedRoute>
               <div className="App-content">
@@ -42,6 +40,7 @@ function App() {
                   setErrorMessage={setErrorMessage}
                   setSuccessMessage={setSuccessMessage}
                 />
+
                 <header className="App-header">
                   <PositionForm
                     positions={positions}
@@ -57,17 +56,26 @@ function App() {
               </div>
             </ProtectedRoute>
           } />
+
+          {/* Protected Admin Route */}
           <Route path="/admin" element={
             <ProtectedRoute>
-              <AdminPanel />
+              <div className="App-content">
+                <AdminPanel />
+              </div>
             </ProtectedRoute>
           } />
+          {/* Protected Change Password Route */}
           <Route path="/change-password" element={
             <ProtectedRoute>
-              <ChangePassword />
+              <div className="App-content">
+                <ChangePassword />
+              </div>
             </ProtectedRoute>
           } />
         </Routes>
+
+
         <ToastContainer
           position="top-right"
           autoClose={5000}

@@ -1,110 +1,111 @@
 .admin-panel {
-  padding: 20px;
-  font-family: Arial, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Center content horizontally */
-}
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+  }
+  
+  .user-form {
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 500px; /* Set a max width for the form */
+    border-collapse: collapse;
+    border: 1px solid #ccc; /* Add a border to the form */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Add padding inside the form */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    background-color: #f9f9f9; /* Light background color */
+  }
+  
+  .user-form td {
+    padding: 10px;
+  }
+  
+  .user-form input, .user-form select {
+    padding: 8px;
+    width: calc(100% - 16px); /* Adjust width to account for padding */
+    border: 1px solid #ccc; /* Add border to inputs */
+    border-radius: 4px; /* Rounded corners for inputs */
+    box-sizing: border-box; /* Ensure padding is included in width */
+  }
+  
+  .button-container {
+    display: flex; /* Use flexbox to align buttons */
+    justify-content: center; /* Center the buttons */
+    margin-top: 10px; /* Add some space above the buttons */
+  }
+  
+  .create-button {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    margin-right: 10px; /* Space between buttons */
+  }
+  
+  .create-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  .reset-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 10px 15px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .reset-button:hover {
+    background-color: #e53935; /* Darker red on hover */
+  }
+  
+  table {
+    width: 80%;
+    border-collapse: collapse;
+  }
+  
+  table, th, td {
+    border: 1px solid #ccc;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f4f4f4;
+  }
+  
+  /* Styles for Delete button */
+  .delete-button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .delete-button:hover {
+    background-color: #e53935; /* Darker red on hover */
+  }
+  
+  /* Styles for Reset Password button */
+  .reset-password-button {
+    background-color: #2196F3; /* Blue background */
+    color: white; /* White text */
+    border: none; /* No border */
+    border-radius: 4px; /* Rounded corners */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+  }
+  
+  .reset-password-button:hover {
+    background-color: #1e88e5; /* Darker blue on hover */
+  }
 
-.user-form {
-  margin-bottom: 20px;
-  width: 100%;
-  max-width: 500px; /* Set a max width for the form */
-  border-collapse: collapse;
-  border: 1px solid #ccc; /* Add a border to the form */
-  border-radius: 5px; /* Rounded corners */
-  padding: 20px; /* Add padding inside the form */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-  background-color: #f9f9f9; /* Light background color */
-}
-
-.user-form td {
-  padding: 10px;
-}
-
-.user-form input, .user-form select {
-  padding: 8px;
-  width: calc(100% - 16px); /* Adjust width to account for padding */
-  border: 1px solid #ccc; /* Add border to inputs */
-  border-radius: 4px; /* Rounded corners for inputs */
-  box-sizing: border-box; /* Ensure padding is included in width */
-}
-
-.button-container {
-  display: flex; /* Use flexbox to align buttons */
-  justify-content: center; /* Center the buttons */
-  margin-top: 10px; /* Add some space above the buttons */
-}
-
-.create-button {
-  background-color: #4CAF50; /* Green background */
-  color: white; /* White text */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px 15px; /* Padding */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-right: 10px; /* Space between buttons */
-}
-
-.create-button:hover {
-  background-color: #45a049; /* Darker green on hover */
-}
-
-.reset-button {
-  background-color: #f44336; /* Red background */
-  color: white; /* White text */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 10px 15px; /* Padding */
-  cursor: pointer; /* Pointer cursor on hover */
-}
-
-.reset-button:hover {
-  background-color: #e53935; /* Darker red on hover */
-}
-
-table {
-  width: 80%;
-  border-collapse: collapse;
-}
-
-table, th, td {
-  border: 1px solid #ccc;
-}
-
-th, td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-
-/* Styles for Delete button */
-.delete-button {
-  background-color: #f44336; /* Red background */
-  color: white; /* White text */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 5px 10px; /* Padding */
-  cursor: pointer; /* Pointer cursor on hover */
-}
-
-.delete-button:hover {
-  background-color: #e53935; /* Darker red on hover */
-}
-
-/* Styles for Reset Password button */
-.reset-password-button {
-  background-color: #2196F3; /* Blue background */
-  color: white; /* White text */
-  border: none; /* No border */
-  border-radius: 4px; /* Rounded corners */
-  padding: 5px 10px; /* Padding */
-  cursor: pointer; /* Pointer cursor on hover */
-}
-
-.reset-password-button:hover {
-  background-color: #1e88e5; /* Darker blue on hover */
-}
