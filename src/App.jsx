@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 import './css/App.css';
 import Camera from './Camera';
@@ -12,6 +13,7 @@ import NavBar from './NavBar';
 import ButtonHeader from './ButtonHeader';
 import AdminPanel from './AdminPanel';
 import ChangePassword from './ChangePassword';
+
 
 function App() {
   const [positions, setPositions] = useState({ x: 0, y: 0, z: 0, r: 0 });
@@ -29,6 +31,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
 
           {/* Protected Home Route */}
+
           <Route path="/home" element={
             <ProtectedRoute>
               <div className="App-content">
@@ -71,6 +74,7 @@ function App() {
             </ProtectedRoute>
           } />
         </Routes>
+
 
         <ToastContainer
           position="top-right"
