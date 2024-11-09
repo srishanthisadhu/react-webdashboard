@@ -19,7 +19,7 @@ const handleLogin = async () => {
   }, 10000);
 
   try {
-    const response = await fetch('http://192.168.178.150:3000/auth', {
+    const response = await fetch('http://192.168.178.150:5050/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,13 +36,14 @@ const handleLogin = async () => {
 
     const data = await response.json();
 
-    if (response.ok && data.message === 'Authentication successful') {
+    if (response.ok && data.message === 'Login successful') {
       const expires = new Date();
       expires.setTime(expires.getTime() + 15 * 60 * 1000); // Set 15-minute expiry
       localStorage.setItem(
         'auth',
         JSON.stringify({ isAuthenticated: true, expires: expires.toISOString() })
       );
+      localStorage.setItem('role', data.role);
       toast.success('Login successful!');
       navigate('/home'); // Navigate to home on success
     } else {
