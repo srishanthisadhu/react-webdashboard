@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Navigate } from 'react-router-dom';
 
 const checkAuth = () => {
-    console.log('Retrieving authentication token from local storage...');
+    // console.log('Retrieving authentication token from local storage...');
     const auth = localStorage.getItem('auth');
     if (!auth) {
         console.log('No authentication token found.');
@@ -12,7 +12,7 @@ const checkAuth = () => {
 
     const authObj = JSON.parse(auth);
     const expires = new Date(authObj.expires);
-    console.log(`Token expiration time: ${expires}, Current time: ${new Date()}`);
+    // console.log(`Token expiration time: ${expires}, Current time: ${new Date()}`);
     
     if (expires < new Date()) {
         console.log('Authentication token has expired.');
@@ -20,7 +20,7 @@ const checkAuth = () => {
         return false;
     }
 
-    console.log('Authentication token is valid.');
+    // console.log('Authentication token is valid.');
     return authObj.isAuthenticated;
 };
 
@@ -32,7 +32,7 @@ const ProtectedRoute = ({ children }) => {
         return <Navigate to="/login" replace />;
     }
     
-    console.log('Authentication successful, rendering children');
+    // console.log('Authentication successful, rendering children');
     return children;
 };
 

@@ -17,7 +17,7 @@ function PositionForm({ positions, setPositions, errorMessage, successMessage, s
     }, 20000);
     try {
       // Make the fetch request with the signal from AbortController
-      const response = await fetch('http://192.168.178.150:3000/getHome', {
+      const response = await fetch('http://192.168.178.150:3050/getHome', {
         signal: signal, // Attach the signal to the fetch request
       });
       // Clear the timeout once the response is received
@@ -83,7 +83,7 @@ function PositionForm({ positions, setPositions, errorMessage, successMessage, s
     }, 20000);
     try {
       // Make the fetch request with the signal from AbortController
-      const response = await fetch('http://192.168.178.150:3000/move2point', {
+      const response = await fetch('http://192.168.178.150:3050/move2point', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

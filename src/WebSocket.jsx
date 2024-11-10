@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'; // Import toast from react-toastify
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import "./css/WebSocket.css";
 
-const SOCKET_IO_URL = "http://192.168.178.150:3000/bash";
+const SOCKET_IO_URL = "http://192.168.178.150:3050/bash";
 
 function WebSocket() {
   const [messages, setMessages] = useState([]);
@@ -32,7 +32,7 @@ function WebSocket() {
 
   const handleConnect = async () => {
     try {
-      const response = await fetch('http://192.168.178.150:3000/connect2robot');
+      const response = await fetch('http://192.168.178.150:3050/connect2robot');
       if (response.ok) {
         setConnected(true);
         console.log('Connected to robot successfully');

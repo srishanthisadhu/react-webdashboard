@@ -15,7 +15,7 @@ function ButtonHeader({ setPositions, setErrorMessage, setSuccessMessage }) {
     }, 20000);
     try {
       // Make the fetch request with the signal from AbortController
-      const response = await fetch('http://192.168.178.150:3000/home', {
+      const response = await fetch('http://192.168.178.150:3050/home', {
         method: 'GET',
         signal: signal,  // Attach the signal to the fetch request
       });
