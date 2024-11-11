@@ -8,7 +8,7 @@ function Camera () {
             src="http://192.168.178.150:3051/video_feed" 
             alt="Webcam feed for Dobot Robot" 
             // style={{ width: '100%', height: 'auto' }} 
-            style={{ width: '600px', height: '450px' }}
+            style={{ width: '800px', height: '550px' }}
           />
         </div>
       );

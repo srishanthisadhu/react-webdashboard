@@ -58,17 +58,17 @@ function WebSocket() {
     return (
     <div className="app-container">
       <div className="header-container">
-        <h2 className="app-header">Dobot Connection Logs</h2>
-        <button className="clear-log-button" onClick={clearLog}>
+        {/* <h2 className="app-header">Dobot Connection Logs</h2> */}
+        {/* <button className="clear-log-button" onClick={clearLog}>
           Clear Log
-        </button>
+        </button> */}
       </div>
-      <div className="messages-list">
+      {/* <div className="messages-list">
         {messages.map((msg, index) => (
           <p key={index} className="message-item">{msg}</p>
         ))}
-      </div>
-      <div className="button-container">
+      </div> */}
+      {/* <div className="button-container"> */}
         <button 
           className={`connect-button ${connected ? 'connected' : ''}`} 
           onClick={handleConnect}
@@ -83,7 +83,7 @@ function WebSocket() {
         >
           Disconnect
         </button>
-      </div>
+      {/* </div> */}
     </div>
   );
 }

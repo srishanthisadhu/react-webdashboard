@@ -80,5 +80,5 @@ body {
   display: flex;          /* Aligns children (flex items) in a row */
   justify-content: center; /* Centers children horizontally */
   align-items: center;     /* Centers children vertically */
-  gap: 20px;               /* Optional: adds space between children */
+  gap: 18%;               /* Optional: adds space between children */
 }

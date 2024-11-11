@@ -40,7 +40,7 @@ function App() {
                   setErrorMessage={setErrorMessage}
                   setSuccessMessage={setSuccessMessage}
                 />
-
+                <WebSocket />
                 <header className="App-header">
                   <PositionForm
                     positions={positions}
@@ -52,7 +52,7 @@ function App() {
                   />
                   <Camera />
                 </header>
-                <WebSocket />
+                
               </div>
             </ProtectedRoute>
           } />

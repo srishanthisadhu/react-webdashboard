@@ -19,6 +19,7 @@
   
   .app-header {
     color: #213547;                /* Light color for the header for contrast */
+    text-align: center;
   }
   
   .button-container {
