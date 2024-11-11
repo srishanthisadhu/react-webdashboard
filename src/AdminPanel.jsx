@@ -18,7 +18,7 @@ function AdminPanel(){
 
   const fetchUsers = async () => {
     try {
-      const response = await fetch('http://localhost:5050/admin/all_users');
+      const response = await fetch('http://192.168.178.150:5050/admin/all_users');
       if (response.ok) {
         const data = await response.json();
         setUsers(data);
@@ -44,7 +44,7 @@ function AdminPanel(){
       };
 
       try {
-        const response = await fetch('http://localhost:5050/admin/create_user', {
+        const response = await fetch('http://192.168.178.150:5050/admin/create_user', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -82,7 +82,7 @@ function AdminPanel(){
 
       const encodedUsername = encodeURIComponent(username);
       try {
-        const response = await fetch(`http://localhost:5050/admin/delete_user/${encodedUsername}`, {
+        const response = await fetch(`http://192.168.178.150:5050/admin/delete_user/${encodedUsername}`, {
           method: 'DELETE',
         });
 
@@ -109,7 +109,7 @@ function AdminPanel(){
         };
 
         try {
-          const response = await fetch('http://localhost:5050/admin/reset_password', {
+          const response = await fetch('http://192.168.178.150:5050/admin/reset_password', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

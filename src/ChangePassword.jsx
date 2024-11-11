@@ -26,7 +26,7 @@ const ChangePassword = () => {
         };
 
         try {
-            const response = await fetch('http://localhost:5050/admin/reset_password', {
+            const response = await fetch('http://192.168.178.150:5050/admin/reset_password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
