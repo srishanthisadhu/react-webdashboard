@@ -19,3 +19,14 @@
     text-align: center;
     margin-left: 10px;
   }
+
+  .button-icon {
+    cursor: pointer;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  
+  .button-icon:hover {
+    transform: scale(1.1); /* Slight zoom effect */
+    opacity: 0.8; /* Slight transparency */
+  }
+  

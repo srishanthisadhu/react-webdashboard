@@ -1,23 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import "./css/ButtonHeader.css"
+import "./css/ButtonHeader.css";
+import PickupDropForm from './PickupDropForm';
 
 function ButtonHeader({ setPositions, setErrorMessage, setSuccessMessage }) {
+  const [showPickupDropForm, setShowPickupDropForm] = useState(false);
+
   const handleHome = async () => {
     console.log(setPositions);
-    // Create an AbortController instance
     const controller = new AbortController();
     const { signal } = controller;
-  
-    // Create a timeout that aborts the fetch request after 20 seconds
+
     const timeoutId = setTimeout(() => {
-      controller.abort(); // Aborts the fetch request
+      controller.abort();
     }, 20000);
     try {
-      // Make the fetch request with the signal from AbortController
       const response = await fetch('http://192.168.178.150:3050/home', {
         method: 'GET',
-        signal: signal,  // Attach the signal to the fetch request
+        signal: signal,
       });
       clearTimeout(timeoutId);
       if (!response.ok) {
@@ -26,7 +26,7 @@ function ButtonHeader({ setPositions, setErrorMessage, setSuccessMessage }) {
       const data = await response.json();
       console.log('Success:', data);
       toast.success(data.message);
-      setSuccessMessage(data.message); // Set success message from response
+      setSuccessMessage(data.message);
       setPositions({ x: 150, y: 0, z: 100, r: 0 });
       setErrorMessage('');
     } catch (error) {
@@ -41,20 +41,52 @@ function ButtonHeader({ setPositions, setErrorMessage, setSuccessMessage }) {
   };
 
   const onStopClick = async () => {
-    console.log("Stop clicked")
-    alert("Stopping all process on robot")
-  }
+    console.log("Stop clicked");
+    try {
+      const response = await fetch('http://192.168.178.150:3050/cancel_goal', {
+        method: 'GET',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log('Success:', data);
+      toast.success(data.message);
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error(error.message || 'An error occurred');
+    }
+  };
+
+  const onPickupDropClick = () => {
+    setShowPickupDropForm((prev) => !prev); 
+  };
+
+  const handleFormSubmit = () => {
+    console.log("Form submitted, closing form");
+    setShowPickupDropForm(false);
+  };
 
   return (
-    <div className="button-header">
-      <div className="button-container">
-        <img src="src/assets/home-icon.png" alt="Home" onClick={handleHome} />
-        <label className="label">Home</label>
+    <div>
+      <div className="button-header">
+        <div className="button-container">
+          <img src="src/assets/home-icon.png" alt="Home" className="button-icon" onClick={handleHome} />
+          <label className="label">Home</label>
+        </div>
+        <div className="button-container">
+          <img src="src/assets/emergency-stop.png" alt="Emergency Stop" className="button-icon" onClick={onStopClick} />
+          <label className="label">Emergency Stop</label>
+        </div>
+        <div className="button-container">
+          <img
+            src="src/assets/pickup-drop.png" alt="Pick/Place" className="button-icon" onClick={onPickupDropClick} />
+          <label className="label">Pick/Place</label>
+        </div>
       </div>
-      <div className="button-container">
-        <img src="src/assets/emergency-stop.png" alt="Emergency Stop" onClick={onStopClick} />
-        <label className="label">Emergency Stop</label>
-      </div>
+      {showPickupDropForm && (
+        <PickupDropForm onSubmit={handleFormSubmit} /> 
+      )}
     </div>
   );
 }
