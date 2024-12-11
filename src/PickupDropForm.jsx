@@ -21,6 +21,29 @@ function PickupDropForm({ onSubmit }) {
 
     // TODO Add logic to process pickup and drop requests to backend
     onSubmit();
+    const payload = {
+      pick_location: pickupData,
+      place_location: dropData,
+    };
+    
+    try {
+      const response = await fetch('http://192.168.178.150:3055/pick-place', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data); // Handle the response data
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
