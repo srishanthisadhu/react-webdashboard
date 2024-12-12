@@ -74,7 +74,7 @@ function WebSocket() {
           onClick={handleConnect}
           disabled={connected}
         >
-          Connect
+          Connect to Dobot
         </button>
         <button 
           className="disconnect-button" 

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from 'react-toastify';
 
 function PickupDropForm({ onSubmit }) {
   const [pickupData, setPickupData] = useState({ x: "", y: "", z: "", r: "" });
@@ -41,8 +42,10 @@ function PickupDropForm({ onSubmit }) {
 
       const data = await response.json();
       console.log(data); // Handle the response data
+      toast.success('Pick-and-place task initiated successfully!')
     } catch (error) {
       console.error('Error:', error);
+      toast.error('Failed to initiate pick-and-place operation');
     }
   };
 
